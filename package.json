@@ -1,0 +1,71 @@
+{
+  "name": "@yzfu/bumpx",
+  "version": "1.0.0",
+  "packageManager": "pnpm@8.6.0",
+  "description": "",
+  "keywords": [
+    "version",
+    "bump",
+    "npm",
+    "node",
+    "bower",
+    "package",
+    "git",
+    "tag",
+    "push",
+    "prompt"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "bumpp": "bin/bumpp.js"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "bumpx": "esno ./src/cli.ts",
+    "build": "tsup src/index.ts src/cli.ts --format esm,cjs --dts --clean",
+    "watch": "npm run build -- --watch src",
+    "clean": "rimraf .nyc_output coverage dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "release": "npm run bumpx && npm publish"
+  },
+  "author": "fafayzf",
+  "license": "MIT",
+  "dependencies": {
+    "bumpp": "^9.2.0",
+    "c12": "^1.4.2",
+    "cac": "^6.7.14",
+    "fast-glob": "^3.3.1",
+    "glob": "^10.3.4",
+    "micromatch": "^4.0.5",
+    "prompts": "^2.4.2",
+    "semver": "^7.5.4"
+  },
+  "devDependencies": {
+    "@types/micromatch": "^4.0.2",
+    "@types/node": "^20.6.0",
+    "@types/prompts": "^2.4.4",
+    "@types/semver": "^7.5.2",
+    "detect-indent": "^7.0.1",
+    "detect-newline": "^4.0.0",
+    "esno": "^0.17.0",
+    "picocolors": "^1.0.0",
+    "rimraf": "^5.0.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}
