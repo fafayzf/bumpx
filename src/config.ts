@@ -2,8 +2,9 @@ import { loadConfig } from 'c12'
 import { bumpConfigDefaults } from 'bumpp'
 import type { DefaultOptions } from './types/bumpx-options'
 
-export const bumpxConfigDefaults = {
-  select: false
+export const bumpxConfigDefaults: DefaultOptions = {
+  select: false,
+  push: false
 }
 
 export async function loadBumpConfig(overrides?: Partial<DefaultOptions>,
