@@ -1,4 +1,5 @@
 import { loadConfig } from 'c12'
+import { bumpConfigDefaults } from 'bumpp'
 import type { DefaultOptions } from './types/bumpx-options'
 
 export const bumpxConfigDefaults = {
@@ -9,7 +10,10 @@ export async function loadBumpConfig(overrides?: Partial<DefaultOptions>,
   cwd = process.cwd()) {
   const { config } = await loadConfig<DefaultOptions>({
     name: 'bumpx',
-    defaults: bumpxConfigDefaults,
+    defaults: {
+      ...bumpConfigDefaults,
+      ...bumpxConfigDefaults
+    },
     overrides: {
       ...(overrides as DefaultOptions),
     },
