@@ -104,6 +104,6 @@ export async function selectFiles(files: string[]) {
       choices: filepaths
     }
   ])
-
-  return (upgrade|| []).concat(PKG_NAME)
+  // Upgrade based on the `package.json` version number in the root directory
+  return (upgrade|| []).unshift(PKG_NAME)
 }

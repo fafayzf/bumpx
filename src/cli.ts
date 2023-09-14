@@ -123,6 +123,3 @@ export async function main() {
     errorHandler(error)
   }
 }
-
-
-main()
