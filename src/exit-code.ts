@@ -8,3 +8,8 @@ export enum ExitCode {
   FatalError = 1,
   InvalidArgument = 9,
 }
+
+export function errorHandler(error: Error): never {
+  console.error(error.message)
+  return process.exit(ExitCode.InvalidArgument)
+}

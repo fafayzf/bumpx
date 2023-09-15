@@ -8,6 +8,7 @@ import { ExitCode } from './exit-code'
 import { loadBumpConfig } from './config'
 import { isReleaseType } from './release-type'
 import { filterPkgFiles, selectFiles } from './select-pkg'
+import { errorHandler } from './exit-code'
 
 import type { DefaultOptions } from './types/bumpx-options'
 
@@ -87,10 +88,7 @@ export async function parseArgs() {
   }
 }
 
-function errorHandler(error: Error): never {
-  console.error(error.message)
-  return process.exit(ExitCode.InvalidArgument)
-}
+
 
 
 export async function main() {

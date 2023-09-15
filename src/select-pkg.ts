@@ -4,6 +4,8 @@ import prompts from 'prompts'
 import { join } from 'node:path'
 import { readTextFile, readJsonFile } from './fs'
 import { isManifest } from './mainfest'
+import { errorHandler } from './exit-code'
+
 import type { DefaultOptions } from './types/bumpx-options'
 
 import {
@@ -96,14 +98,45 @@ export async function selectFiles(files: string[]) {
     }
   }
 
-  const { upgrade } = await prompts([
+  const { isall } = await prompts([
     {
-      type: 'multiselect',
-      name: 'upgrade',
-      message: 'Select the package that needs to be upgraded',
-      choices: filepaths
+      type: 'confirm',
+      name: 'isall',
+      message: 'Publish all?',
+      initial: false, // Default manual selection
     }
   ])
+
+  if (isall === undefined) {
+    errorHandler({
+      name: 'Publish all',
+      message: 'No choice, exit abnormally'
+    })
+  }
+
+  if (!isall) {
+    const { upgrade } = await prompts([
+      {
+        type: 'autocompleteMultiselect',
+        name: 'upgrade',
+        message: 'Select the package that needs to be upgraded',
+        choices: filepaths,
+        hint: '- Space to select. Return to keyboard `Enter`'
+      }
+    ])
+
+    if (upgrade === undefined) {
+      errorHandler({
+        name: 'upgrade',
+        message: 'No choice, exit abnormally'
+      })
+    }
+
+    files = upgrade
+  }
+  
   // Upgrade based on the `package.json` version number in the root directory
-  return (upgrade|| []).unshift(PKG_NAME)
+  files.unshift(PKG_NAME)
+  
+  return files
 }
