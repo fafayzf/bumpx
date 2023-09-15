@@ -107,8 +107,9 @@ export async function selectFiles(files: Files) {
     }
   ])
 
-  if (isall === undefined)
+  if (isall === undefined) {
     warnHandler('No choice, exit abnormally')
+  }
 
   if (!isall) {
     const { upgrade } = await prompts([
@@ -121,8 +122,9 @@ export async function selectFiles(files: Files) {
       }
     ])
 
-    if (upgrade === undefined)
+    if (upgrade === undefined) {
       warnHandler('No choice, exit abnormally')
+    }
 
     files = upgrade
   }

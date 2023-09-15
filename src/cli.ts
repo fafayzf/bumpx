@@ -109,7 +109,7 @@ export async function main() {
         options.recursive = false
         options.files = await selectFiles(options.files)
       }
-
+      
       await versionBump(options)
     }
 

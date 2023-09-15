@@ -10,20 +10,21 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](/LICENSE)
 
 
-###### feature
+##### Feature:
 - Based on **[bumpp](https://github.com/antfu/bumpp)**, new --select option
 - Use **`-s(--select)`** to manually select the specified package for upgrade
 - Disable **`push`** (opt-out by --no-push, etc.) by default
 - **Always use the version of package.json in the root directory as the latest version number**
 
-Details:
+##### Details:
   1. By default, only the **`package.json`** version number of the project is updated. 
   2. If the files attribute is added to the configuration file **`bumpx.config.ts`**, all packages of **`files`** will be updated.
   3. If a **`workspaces`** is configured, the packages in the **`workspaces`** will be upgraded first.
   4. If **`-s (--select)`** is configured, you will be informed before step **2** or **4** whether to select some packages to upgrade.
 
-order:
-  bumpx.config.ts > workspaces > root
+
+###### Execution order:
+  **script command > bumpx.config.ts > workspaces > root**
 
 ## Use
 ```sh
