@@ -3,12 +3,6 @@
   "version": "0.0.12",
   "description": "",
   "main": "index.js",
-  "workspaces": [
-    "packages/project-1",
-    "packages/project-3",
-    "packages/project-4",
-    "docs/*"
-  ],
   "scripts": {
     "bumpx": "esno ../scripts/bin.ts -s"
   },
