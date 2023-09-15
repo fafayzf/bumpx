@@ -18,5 +18,4 @@ export function errorHandler(error: Error): never {
 
 export function warnHandler(message: string) {
   console.warn(c.yellow(message))
-  return process.exit(ExitCode.Success)
 }

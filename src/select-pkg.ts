@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { readTextFile, readJsonFile } from './fs'
 import { isManifest } from './mainfest'
-import { warnHandler } from './exit-code'
+import { errorHandler } from './exit-code'
 
 import type { DefaultOptions } from './types/bumpx-options'
 
@@ -108,7 +108,10 @@ export async function selectFiles(files: Files) {
   ])
 
   if (isall === undefined) {
-    warnHandler('No choice, exit abnormally')
+    errorHandler({
+      name: 'publish all',
+      message: 'No choice, exit abnormally'
+    })
   }
 
   if (!isall) {
@@ -123,7 +126,10 @@ export async function selectFiles(files: Files) {
     ])
 
     if (upgrade === undefined) {
-      warnHandler('No choice, exit abnormally')
+      errorHandler({
+        name: 'upgrade',
+        message: 'No choice, exit abnormally'
+      })
     }
 
     files = upgrade

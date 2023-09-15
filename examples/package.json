@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bumpx": "esno ../scripts/bin.ts"
+    "bumpx": "esno ../scripts/bin.ts -s && echo 'hello world'"
   },
   "keywords": [],
   "author": "",
