@@ -1,17 +1,14 @@
 import cac from 'cac'
 import c from 'picocolors'
-import { versionBump } from 'bumpp'
+import { versionBump, bumpConfigDefaults } from 'bumpp'
 import { valid as isValidVersion } from 'semver'
-import { bumpConfigDefaults } from 'bumpp'
 import { version } from '../package.json'
-import { ExitCode } from './exit-code'
-import { loadBumpConfig } from './config'
+import { ExitCode, errorHandler } from './exit-code'
+import { loadBumpConfig, configDefaults } from './config'
 import { isReleaseType } from './release-type'
 import { filterPkgFiles, selectFiles } from './select-pkg'
-import { errorHandler } from './exit-code'
 
 import type { DefaultOptions } from './types/bumpx-options'
-
 
 export interface ParsedArgs {
   help?: boolean
@@ -28,18 +25,18 @@ export async function parseArgs() {
       .version(version)
       .usage('[...files]')
       .option('--preid <preid>', 'ID for prerelease')
-      .option('--all', `Include all files (default: ${bumpConfigDefaults.all})`)
-      .option('-c, --commit [msg]', `Commit message (default: ${bumpConfigDefaults.commit})`)
-      .option('-t, --tag [tag]', `Tag name (default: ${bumpConfigDefaults.tag})`)
-      .option('-p, --push', `Push to remote (default: ${bumpConfigDefaults.push})`)
-      .option('-y, --yes', `Skip confirmation (default: ${!bumpConfigDefaults.confirm})`)
-      .option('-r, --recursive', `Bump package.json files recursively (default: ${bumpConfigDefaults.recursive})`)
+      .option('--all', `Include all files (default: ${configDefaults.all})`)
+      .option('-c, --commit [msg]', `Commit message (default: ${configDefaults.commit})`)
+      .option('-t, --tag [tag]', `Tag name (default: ${configDefaults.tag})`)
+      .option('-p, --push', `Push to remote (default: ${configDefaults.push})`)
+      .option('-y, --yes', `Skip confirmation (default: ${!configDefaults.confirm})`)
+      .option('-r, --recursive', `Bump package.json files recursively (default: ${configDefaults.recursive})`)
       .option('--no-verify', 'Skip git verification')
-      .option('--ignore-scripts', `Ignore scripts (default: ${bumpConfigDefaults.ignoreScripts})`)
+      .option('--ignore-scripts', `Ignore scripts (default: ${configDefaults.ignoreScripts})`)
       .option('-q, --quiet', 'Quiet mode')
       .option('-v, --version <version>', 'Tagert version')
       .option('-x, --execute <command>', 'Commands to execute after version bumps')
-      .option('-s, --select', `Select the specified package file`)
+      .option('-s, --select', `Select the specified package file (default: ${configDefaults.select})`)
       .help()
     
     const result = cli.parse()
@@ -103,7 +100,6 @@ export async function main() {
     }
     else if (version) {
       // Show the version number and exit
-      console.log(version)
       process.exit(ExitCode.Success)
     }
     else {

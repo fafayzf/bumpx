@@ -1,3 +1,5 @@
+import c from 'picocolors'
+
 /**
  * CLI exit codes.
  *
@@ -10,6 +12,11 @@ export enum ExitCode {
 }
 
 export function errorHandler(error: Error): never {
-  console.error(error.message)
+  console.error(c.red(error.message))
   return process.exit(ExitCode.InvalidArgument)
+}
+
+export function warnHandler(message: string) {
+  console.warn(c.yellow(message))
+  return process.exit(ExitCode.Success)
 }

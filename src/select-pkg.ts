@@ -1,10 +1,10 @@
-import { existsSync } from 'node:fs'
 import glob from 'fast-glob'
 import prompts from 'prompts'
+import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { readTextFile, readJsonFile } from './fs'
 import { isManifest } from './mainfest'
-import { errorHandler } from './exit-code'
+import { warnHandler } from './exit-code'
 
 import type { DefaultOptions } from './types/bumpx-options'
 
@@ -18,25 +18,25 @@ import {
   PNPM_WORKSPACE_FILE,
 } from './contant'
 
+type Files = string[]
 
-export async function filterPkgFiles(options: DefaultOptions): Promise<string[]> {
-  let pkgFiles: string[] = [], files: string[] = []
+export async function filterPkgFiles(options: DefaultOptions): Promise<Files> {
+  let pkgFiles = [], files = []
   // If files are not configured, priority will be given to package.json in the workspace.
   if (options.files?.length) {
-    files = options.files as string[]
-    pkgFiles = finePkgFile(files)
+    files = options.files as Files
+    pkgFiles = findPkgFile(files)
   }
   else {
     files = [PKG_NAME]
-    const workFiles = await findWorkspace(files) as string[]
-    pkgFiles = finePkgFile(workFiles)
+    const workFiles = await findWorkspace(files)
+    pkgFiles = findPkgFile(workFiles)
   }
   
   return pkgFiles
-  
 }
 
-export async function findWorkspace(files: string[]) {
+export async function findWorkspace(files: Files) {
   try {
     // package-lock.json, yarn.lock
     if (existsSync(NPM_LOCK_FILE) || existsSync(YARN_LOCK_FILE)) {
@@ -68,7 +68,7 @@ export async function findWorkspace(files: string[]) {
   return files
 }
 
-function finePkgFile(files: string[]) {
+function findPkgFile(files: Files) {
   const result = glob.sync(files, {
     cwd: ROOT,
     ignore: [
@@ -82,9 +82,9 @@ function convertPath(windowsPath: string) {
   return windowsPath.replace(/^\\\\\?\\/,"").replace(/\\/g,'\/').replace(/\/\/+/g,'\/')
 }
 
-export async function selectFiles(files: string[]) {
+export async function selectFiles(files: Files) {
   const filepaths = []
-
+  // The root directory package.json is upgraded by default, no selection is required.
   files = files.filter(file => file !== PKG_NAME)
 
   for (let file of files) {
@@ -107,12 +107,8 @@ export async function selectFiles(files: string[]) {
     }
   ])
 
-  if (isall === undefined) {
-    errorHandler({
-      name: 'Publish all',
-      message: 'No choice, exit abnormally'
-    })
-  }
+  if (isall === undefined)
+    warnHandler('No choice, exit abnormally')
 
   if (!isall) {
     const { upgrade } = await prompts([
@@ -125,12 +121,8 @@ export async function selectFiles(files: string[]) {
       }
     ])
 
-    if (upgrade === undefined) {
-      errorHandler({
-        name: 'upgrade',
-        message: 'No choice, exit abnormally'
-      })
-    }
+    if (upgrade === undefined)
+      warnHandler('No choice, exit abnormally')
 
     files = upgrade
   }
