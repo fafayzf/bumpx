@@ -46,7 +46,7 @@ export async function parseArgs() {
       version: args.version as boolean,
       quiet: args.quiet as boolean,
       options: await loadBumpConfig({
-        select: !!args.select,
+        select: args.select,
         preid: args.preid,
         commit: args.commit,
         tag: args.tag,
