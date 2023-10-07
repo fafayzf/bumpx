@@ -21,6 +21,7 @@
   2. If the files attribute is added to the configuration file **`bumpx.config.ts`**, all packages of **`files`** will be updated.
   3. If a **`workspaces`** is configured, the packages in the **`workspaces`** will be upgraded first.
   4. If **`-s (--select)`** is configured, you will be informed before step **2** or **4** whether to select some packages to upgrade.
+  5. Supports **`npm`**, **`yarn`**, **`pnpm`** workspaces
 
 
 ###### Execution order:

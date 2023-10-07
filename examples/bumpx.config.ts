@@ -4,6 +4,6 @@ export default defineConfig({
   recursive: true,
   select: false,
   tag: false,
-  commit: false
-  // files: ['packages/**/package.json']
+  commit: false,
+  files: ['packages/**/package.json', 'docs/**/package.json']
 })
