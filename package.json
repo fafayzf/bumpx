@@ -1,8 +1,8 @@
 {
   "name": "@yzfu/bumpx",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "packageManager": "pnpm@8.6.0",
-  "description": "base on bumpp, new --select option",
+  "description": "Bump version, base on,bumpp,add new --select option",
   "homepage": "https://github.com/fafayzf/bumpx",
   "repository": {
     "type": "git",
@@ -13,17 +13,17 @@
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
-    "version",
     "bump",
-    "bumpx",
+    "bumpp",
+    "git",
+    "tag",
+    "push",
+    "prompt",
     "npm",
     "node",
     "bower",
     "package",
-    "git",
-    "tag",
-    "push",
-    "prompt"
+    "bumpx"
   ],
   "exports": {
     ".": {
