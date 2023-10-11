@@ -9,6 +9,7 @@
 &nbsp;
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)](/LICENSE)
 
+## bump specified version of multiple packages
 
 ##### Feature:
 - Based on **[bumpp](https://github.com/antfu/bumpp)**, new --select option

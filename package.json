@@ -1,6 +1,6 @@
 {
   "name": "@yzfu/bumpx",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "packageManager": "pnpm@8.6.0",
   "description": "Bump version, base on,bumpp,add new --select option",
   "homepage": "https://github.com/fafayzf/bumpx",
@@ -15,6 +15,7 @@
   "keywords": [
     "bump",
     "bumpp",
+    "version",
     "git",
     "tag",
     "push",
