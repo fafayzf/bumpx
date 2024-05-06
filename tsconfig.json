@@ -19,8 +19,9 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/**/*.ts"
-, "scripts/bin.ts"  ],
+    "src/**/*.ts", 
+    "scripts/bin.ts"
+  ],
   "exclude": [
     "dist",
     "node_modules"

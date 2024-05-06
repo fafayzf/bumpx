@@ -1,6 +1,6 @@
 import cac from 'cac'
 import c from 'picocolors'
-import { versionBump, bumpConfigDefaults } from 'bumpp'
+import { versionBump } from 'bumpp'
 import { valid as isValidVersion } from 'semver'
 import { version } from '../package.json'
 import { ExitCode, errorHandler } from './exit-code'
